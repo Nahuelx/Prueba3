@@ -9,7 +9,7 @@ public class Vehiculo {
     private String patente;
     private String fecha_creacion;
     private int modelo_id;
-    private String estadO;
+    private String estado;
     private String creado_por;
     Conexion con = null;
     
@@ -58,11 +58,11 @@ public class Vehiculo {
     }
 
     public String getEstadO() {
-        return estadO;
+        return estado;
     }
 
     public void setEstadO(String estadO) {
-        this.estadO = estadO;
+        this.estado = estado;
     }
 
     public String getCreado_por() {

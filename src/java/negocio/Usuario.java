@@ -2,16 +2,16 @@ package negocio;
 
 import accesodato.Conexion;
 
-
 public class Usuario {
+
     private int usuario_id;
     private String usuario;
-    private String clave;
-    private String fechaNac;
+    private int clave;
+    private String fecha_nacimiento;
     private String estado;
-    Conexion con = null;
-    
-    public Usuario(){
+    Conexion con;
+
+    public Usuario() {
         con = new Conexion();
     }
 
@@ -31,20 +31,20 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public String getClave() {
+    public int getClave() {
         return clave;
     }
 
-    public void setClave(String clave) {
+    public void setClave(int clave) {
         this.clave = clave;
     }
 
-    public String getFechaNac() {
-        return fechaNac;
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setFechaNac(String fechaNac) {
-        this.fechaNac = fechaNac;
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
     public String getEstado() {
@@ -54,9 +54,18 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    public void insertarUsuario(){
-        con.setConsulta("insert into Usuarios(usuario,clave,fecha_nacimiento,estado)" +
-                "values('" + this.getUsuario() + "','" + this.getClave() +"','" + this.getFechaNac() +"','" + this.getEstado() + "';");
+
+
+    public void crearU() {
+        con.setInsertar("insert into Usuarios(usuario, clave, fecha_nacimiento, estado) values ('" + this.getUsuario() + "','" +this.getClave()+"', '"+this.getFecha_nacimiento()+"','Activo')");
+    }
+
+    public void eliminarU() {
+        con.setInsertar("update Usuarios set estado='pasivo' where usuario_id='" + this.getUsuario_id() + "'");
+    }
+
+    public void actualizarU() {
+        con.setInsertar("update Usuarios set usuario='" + this.getUsuario() + "',clave='" + this.getClave() + "',fecha_nacimiento='" + this.getFecha_nacimiento() + "' where usuario_id='" + this.usuario_id + "'");
+
     }
 }

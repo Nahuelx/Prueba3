@@ -3,13 +3,14 @@ package negocio;
 import accesodato.Conexion;
 
 public class Modelo {
+
     private int modelo_id;
     private String nombre;
     private int marca_id;
     private String estado;
-    Conexion con = null;
-    
-    public Modelo(){
+    Conexion con;
+
+    public Modelo() {
         con = new Conexion();
     }
 
@@ -45,12 +46,16 @@ public class Modelo {
         this.estado = estado;
     }
 
-    public Conexion getCon() {
-        return con;
+    public void crearMO() {
+        con.setInsertar("insert into Modelos(nombre, marca_id, estado) values ('" + this.getNombre() + "'," + this.getMarca_id() + ",'Activo')");
     }
 
-    public void setCon(Conexion con) {
-        this.con = con;
+    public void eliminarMO() {
+        con.setInsertar("update Modelos set estado = 'pasivo' where modelo_id = '" + this.getModelo_id() + "'");
     }
-    
+
+    public void actualizarMO() {
+        con.setInsertar("update Modelos set nombre= '"+ this.getNombre()+"', marca_id= '"+ this.getMarca_id()+"' where modelo_id='" + this.modelo_id + "'");
+
+    }
 }
