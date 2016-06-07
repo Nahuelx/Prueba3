@@ -54,14 +54,6 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public Conexion getCon() {
-        return con;
-    }
-
-    public void setCon(Conexion con) {
-        this.con = con;
-    }
     
     public void insertarUsuario(){
         con.setConsulta("insert into Usuarios(usuario,clave,fecha_nacimiento,estado)" +

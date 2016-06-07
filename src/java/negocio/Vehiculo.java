@@ -7,7 +7,7 @@ public class Vehiculo {
     private int vehiculo_id;
     private String tipo;
     private String patente;
-    private String fechaCrea;
+    private String fecha_creacion;
     private int modelo_id;
     private String estadO;
     private String creado_por;
@@ -41,12 +41,12 @@ public class Vehiculo {
         this.patente = patente;
     }
 
-    public String getFechaCrea() {
-        return fechaCrea;
+    public String getFecha_creacion() {
+        return fecha_creacion;
     }
 
-    public void setFechaCrea(String fechaCrea) {
-        this.fechaCrea = fechaCrea;
+    public void setFecha_creacion(String fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
     }
 
     public int getModelo_id() {
@@ -72,13 +72,16 @@ public class Vehiculo {
     public void setCreado_por(String creado_por) {
         this.creado_por = creado_por;
     }
-
-    public Conexion getCon() {
-        return con;
+    
+    public void crearV(){
+        con.setConsulta("insert into Vehiculo(tipo,patente,fecha_creacion,,modelo_id,estado,creado_por)" +
+                "values('" + this.getTipo() + "','" + this.getPatente() +"','" + this.getFecha_creacion() +"','" + this.getModelo_id() + "','Activo','" + this.getCreado_por() +"';");
     }
-
-    public void setCon(Conexion con) {
-        this.con = con;
+    public void eliminarV(){
+        con.setConsulta("update Vehiculo set estado='Pasivo' where vehiculo_id ='" + this.getVehiculo_id() + "';");
+    }
+    public void actualizarV(){
+        con.setConsulta("update Vehiculo set tipo='" + this.getTipo() +"', patente='" + this.getPatente() +"',fecha_creacion='" + this.getFecha_creacion() + "',modelo_id = '" + this.getModelo_id() + "',creado_por='" + this.getCreado_por() + "' where vehiculo_id ='" + this.getVehiculo_id() + "';");
     }
     
 }

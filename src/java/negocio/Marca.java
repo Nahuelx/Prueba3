@@ -35,13 +35,14 @@ public class Marca {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public Conexion getCon() {
-        return con;
+    public void crearMa(){
+        con.setConsulta("insert into Marca(nombre,estado)" +
+                "values('" + this.getNombre() + "','Activo')");
     }
-
-    public void setCon(Conexion con) {
-        this.con = con;
+    public void eliminarMa(){
+        con.setConsulta("update Marca set estado='Pasivo' where marca_id='" + this.getMarca_id() + "'");
     }
-    
+    public void actualizarMa(){
+        con.setConsulta("update Marca set nombre='" + this.getNombre() +"' where marca_id ='" + this.getMarca_id() + "'");
+    }
 }
