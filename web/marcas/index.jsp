@@ -21,7 +21,13 @@
     <title>Starter Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("usuario")==null){
+                response.sendRedirect("../index.jsp");
+            }
+        %>
   </head>
 
   <body>
@@ -68,7 +74,7 @@
                                 con.setConsulta("select * from marcas where estado='Activo'");
                                 while(con.getResultado().next()){
                                     out.println("<tr>");
-                                    out.println("<td>" + con.getResultado().getString("id_marca") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("marca_id") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("nombre") + "</td>");
                                     out.println("<td><a href='' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='' class='btn btn-success'>Editar Usuario</a></td>");
                                     out.println("</tr>");
@@ -91,6 +97,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../template/js/bootstrap.min.js"></script>
   </body>
 </html>

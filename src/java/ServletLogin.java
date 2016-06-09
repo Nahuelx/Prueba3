@@ -15,22 +15,22 @@ public class ServletLogin extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
-            sesion.setMaxInactiveInterval(2*60);
+            sesion.setMaxInactiveInterval(1*60);
             String user, pass;
             user = request.getParameter("user");
             pass = request.getParameter("pass");
             Conexion con = new Conexion();
-            con.setConsulta("select * from Users where nombre='" + user + "'");
+            con.setConsulta("select * from Usuarios where usuario='" + user + "'");
             while(con.getResultado().next()){
                 if(con.getResultado().getString("clave").equals(pass) && sesion.getAttribute("usuario")==null){
                     sesion.setAttribute("usuario",user);
                 }
             }
             if(sesion.getAttribute("usuario")!=null){
-                response.sendRedirect("usuarios/index.jsp");
+                response.sendRedirect("success.jsp");
             }
             else{
-                out.println("fracasao");
+                response.sendRedirect("failed.jsp");
             }
         }
         catch(Exception ex){
