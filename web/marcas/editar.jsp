@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="accesodato.Conexion"%>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -21,15 +23,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Prueba 3</a>
+                    <a class="navbar-brand" href="#">Prueba3</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="../index.jsp">Inicio</a></li>
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
-                        <li><a href="index.jsp">Modelos</a></li>
-                        <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="../modelos/index.jsp">Modelos</a></li>
+                        <li><a href="index.jsp">Marcas</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -39,31 +41,30 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Crear Modelos</h3>
+                        <h3 class="panel-title">Actualizar Marca</h3>
                     </div>
+                    <%
+                        int id = Integer.parseInt(request.getParameter("editar"));
+                        Conexion con = new Conexion();
+                        con.setConsulta("select * from Marcas where marca_id ='" + id + "'");
+                    %>
                     <div class="panel-body">
-                        
-                        
-                        <form method="POST" action="../ServletModelo">
+                        <% while (con.getResultado().next()) {  %>
+
+                        <form method="POST" action="../ServletMarca?editar=si">
+
+                            <input type="text" readonly="true" value='<% out.println("" + con.getResultado().getString("marca_id")); %>' name="id">
 
                             <div class="form-group">
-                                <label for="nombre">Nombre del nuevo modelo</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar nombre">
-
+                                <label for="nombre"> Nombre </label>
+                                <input type="text" class="form-control" name="nombre" value='<% out.println("" + con.getResultado().getString("nombre")); %>' id="nombre" placeholder="Ingresar Nombre">
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="marca_id">ID de la Marca</label>
-                                <input type="text" class="form-control" name="marca_id" id="marca_id" placeholder="Ingresar ID de la marca">
 
-                            </div>
-                            
-                            <button type="submit" name="crear" class="btn btn-default">Guardar</button>
+
+                            <button type="submit" name="actualizar" class="btn btn-default">Actualizar</button>
                         </form>
-                        <br>
-                        <a href="../index.jsp" class="btn btn-danger">volver</a>
-                        
-            
+                        <% }%> 
+
                     </div>
                 </div>
             </div>
