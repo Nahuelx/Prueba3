@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Actualizar Usuario</h3> //Soy informatico NO FAKE EN UN SOLO LINK PAPUH APROVECHA MEN UuUuUuUuUuUuUuUuUuFFFFFFFFF MEN ESTE MEN
+                        <h3 class="panel-title">Actualizar Usuario</h3> <!--Soy informatico NO FAKE EN UN SOLO LINK PAPUH APROVECHA MEN UuUuUuUuUuUuUuUuUuFFFFFFFFF MEN ESTE MEN-->
                     </div>
                     <%
                         int id = Integer.parseInt(request.getParameter("editar"));
