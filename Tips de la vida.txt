@@ -9,7 +9,7 @@ create table Vehiculos(
 vehiculo_id int(10) primary key not null auto_increment,
 tipo varchar(25),
 patente varchar(25),
-fecha_creacion date(25),
+fecha_creacion date,
 modelo_id int(10),
 estado varchar(25),
 creado_por varchar(25));
