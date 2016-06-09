@@ -12,6 +12,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("usuario")==null){
+                response.sendRedirect("../index.jsp");
+            }
+        %>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -27,11 +33,12 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.jsp">Inicio</a></li>
+                        <li><a href="../success.jsp">Inicio</a></li>
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -46,15 +53,19 @@
                     <%
                         int id = Integer.parseInt(request.getParameter("editar"));
                         Conexion con = new Conexion();
+                        String modelo = "";
                         con.setConsulta("select * from vehiculos where vehiculo_id ='" + id + "'");
                     %>
                     <div class="panel-body">
-                        <% while (con.getResultado().next()) {  %>
+                        <% while (con.getResultado().next()) {
+                                modelo = con.getResultado().getString("modelo_id");
+                        %>
 
-                        <form method="POST" action="../ServletVehiculo?editar=si">
-
-                            <input type="text" readonly="true" value='<% out.println("" + con.getResultado().getString("vehiculo_id")); %>' name="id">
-
+                        <form method="POST" action="../ServletVehiculo">
+                            <div class="form-group">
+                                <label for="vehiculo_id">ID</label>
+                                <input type="text" readonly="true" id="vehiculo_id" name="vehiculo_id" class="form-control" value='<% out.println("" + con.getResultado().getString("vehiculo_id")); %>'>
+                            </div>
                             <div class="form-group">    
                                 <label for="tipo"> Tipo </label>
                                 <input type="text" class="form-control" name="tipo" value='<% out.println("" + con.getResultado().getString("tipo")); %>' id="tipo" placeholder="Ingresar Tipo">
@@ -64,27 +75,27 @@
                                 <label for="patente"> Patente </label>
                                 <input type="text" class="form-control" name="patente" value='<% out.println("" + con.getResultado().getString("patente")); %>' id="patente" placeholder="Ingresar patente">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="fecha_creacion">Fecha de Creacion</label>
-                                <input type="date" class="form-control" name="fecha_creacion" value='<% out.println("" + con.getResultado().getString("fecha_creacion")); %>' id="fecha_creacion">
+                                <% out.println("<input type='date' class='form-control' name='fecha_creacion' value='" + con.getResultado().getString("fecha_creacion") + "' id='fecha_creacion'>"); %>
                             </div>
-
+                            <% }%>
                             <div class="form-group">
-                                <label for="modelo_id">ID del Modelo</label>
-                                <input type="text" class="form-control" name="modelo_id" value='<% out.println("" + con.getResultado().getString("modelo_id")); %>' id="modelo_id" placeholder="Ingresar ID del Modelo">
+                                <label for="modelo_id">Modelo</label>
+                                <select name="modelo_id" id="modelo_id" class="form-control">
+                                    <% con.setConsulta("select * from modelos");%>
+                                    <%while (con.getResultado().next()) {
+                                            if (modelo.equals(con.getResultado().getString("modelo_id"))) {
+                                                out.println("<option value='" + con.getResultado().getString("modelo_id") + "' selected>" + con.getResultado().getString("nombre") + "</option>");
+                                            } else {
+                                                out.println("<option value='" + con.getResultado().getString("modelo_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                            }
+                                        }%>
+                                </select>
                             </div>
-
-                            <div class="form-group">
-                                <label for="creado_por">Creado por</label>
-                                <input type="text" class="form-control" name="creado_por" value='<% out.println("" + con.getResultado().getString("creado_por")); %>' id="creado_por" placeholder="Ingresar el Nombre del creador">
-                            </div>
-
-
                             <button type="submit" name="actualizar" class="btn btn-default">Actualizar</button>
                         </form>
-                        <% }%> 
-
                     </div>
                 </div>
             </div>

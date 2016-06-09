@@ -1,42 +1,42 @@
-
-import accesodato.Conexion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import negocio.Marca;
 
-public class ServletLogin extends HttpServlet {
+public class ServletMarca extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession sesion = request.getSession();
-            sesion.setMaxInactiveInterval(20*60);
-            String user, pass;
-            user = request.getParameter("user");
-            pass = request.getParameter("pass");
-            if (request.getParameter("out") != null) {
-                sesion.invalidate();
-                response.sendRedirect("index.jsp");
+            
+            if(request.getParameter("crear")!=null){
+                String nombre = request.getParameter("nombre");
+                Marca marca = new Marca();
+                marca.setNombre(nombre);
+                marca.crearMa();
+                response.sendRedirect("marcas/index.jsp");
             }
-            Conexion con = new Conexion();
-            con.setConsulta("select * from Usuarios where usuario='" + user + "'");
-            while (con.getResultado().next()) {
-                if (con.getResultado().getString("clave").equals(pass) && sesion.getAttribute("usuario") == null) {
-                    sesion.setAttribute("usuario", user);
-                }
+            else if(request.getParameter("actualizar")!=null){
+                int marca_id = Integer.parseInt(request.getParameter("marca_id"));
+                String nombre = request.getParameter("nombre");
+                Marca marca = new Marca();
+                marca.setMarca_id(marca_id);
+                marca.setNombre(nombre);
+                marca.actualizarMa();
+                response.sendRedirect("marcas/index.jsp");
             }
-            if (sesion.getAttribute("usuario") != null) {
-                response.sendRedirect("success.jsp");
-            } else {
-                response.sendRedirect("failed.jsp");
+            else if(request.getParameter("eliminar")!=null){
+                int marca_id = Integer.parseInt(request.getParameter("eliminar"));
+                Marca marca = new Marca();
+                marca.setMarca_id(marca_id);
+                marca.eliminarMa();
+                response.sendRedirect("marcas/index.jsp");
             }
-        } catch (Exception ex) {
         }
     }
 

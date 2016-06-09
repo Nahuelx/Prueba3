@@ -46,15 +46,15 @@ public class Modelo {
         this.estado = estado;
     }
 
-    public void crearMO() {
-        con.setInsertar("insert into Modelos(nombre, marca_id, estado) values ('" + this.getNombre() + "'," + this.getMarca_id() + ",'Activo')");
+    public void crearMo() {
+        con.setInsertar("insert into Modelos(nombre, marca_id, estado) values ('" + this.getNombre() + "','" + this.getMarca_id() + "','Activo')");
     }
 
-    public void eliminarMO() {
+    public void eliminarMo() {
         con.setInsertar("update Modelos set estado = 'pasivo' where modelo_id = '" + this.getModelo_id() + "'");
     }
 
-    public void actualizarMO() {
+    public void actualizarMo() {
         con.setInsertar("update Modelos set nombre= '"+ this.getNombre()+"', marca_id= '"+ this.getMarca_id()+"' where modelo_id='" + this.modelo_id + "'");
 
     }

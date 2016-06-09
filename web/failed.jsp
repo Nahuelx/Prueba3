@@ -17,6 +17,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="template/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            #caja{
+                margin: 0 auto;
+                width: 500px;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,27 +34,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Proyecto Java Enterprise Edition</a>
+                    <a class="navbar-brand" href="#">Prueba 3</a>
                 </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <!--<ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="usuarios">Usuarios</a></li>
-                        <li><a href="ciudades">Ciudades</a></li>
-                        <li><a href="reportes">Reportes</a></li>
-                    </ul>-->
-                </div><!--/.nav-collapse -->
             </div>
         </nav>
         <div class="container">
             <br><br><br><br><br><br><br><br>
             <div class="row">
-                <div class="panel panel-primary" id="test">
+                <div class="panel panel-danger" id="caja">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Log-in</h3>
+                        <h3 class="panel-title">Log-in fallido</h3>
                     </div>
                     <div class="panel-body">
-                        <p>FALLASTE MEN</p>
+                        <h4>No se ja podido encontrar el usuario/contraseña que usted ha ingresado</h4><a href="index.jsp" class="btn btn-default">Volver</a></h4
                     </div>
                 </div>
             </div>

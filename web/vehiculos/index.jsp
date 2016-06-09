@@ -40,8 +40,8 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="../success.jsp">Inicio</a></li>
-                        <li><a href="#">Usuarios</a></li>
-                        <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
+                        <li><a href="../usuarios/index.jsp">Usuarios</a></li>
+                        <li><a href="#">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
                         <li><a href="../ServletLogin?out=si">Log-out</a></li>
@@ -55,48 +55,54 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Lista de Usuarios</h3>
+                        <h3 class="panel-title">Lista de Vehiculos</h3>
                     </div>
                     <div class="panel-body">
                         <form action="index.jsp" method="post" class="form-inline">
                             <div class="form-group">
-                                <label for="buscar" class="control-label">Buscar por nombre : </label>
+                                <label for="buscar" class="control-label">Buscar por tipo : </label>
                                 <input type="text" name="buscar" id="buscar" class="form-control" />
                             </div>
                                 <input type="submit" value="Buscar" class="btn btn-default" />
                         </form>
                         <br>
-                        <a href="crear.jsp" class="btn btn-primary">Nuevo Usuario</a>
+                        <a href="crear.jsp" class="btn btn-primary">Nuevo Vehiculo</a>
                         <br><br>
                         <table class="table table-condensed table-hover">
                             <thead>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Clave</th>
-                                <th>Fecha de nacimiento</th>
+                                <th>Tipo</th>
+                                <th>Patente</th>
+                                <th>Fecha de creacion</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Creador</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                                 <% Conexion con = new Conexion();
                                 if(request.getParameter("buscar")!=null){
                                     if(request.getParameter("buscar").isEmpty()){
-                                        con.setConsulta("select * from Usuarios where estado='Activo'");
+                                        con.setConsulta("select v.*,  m.nombre as modelo, b.nombre as marca from vehiculos v, modelos m, marcas b where v.modelo_id = m.modelo_id and m.marca_id = b.marca_id and v.estado='Activo';");
                                     }
                                     else{
                                         String nombre = request.getParameter("buscar");
-                                        con.setConsulta("select * from Usuarios where estado='Activo' and usuario like '%" + nombre + "%'");
+                                        con.setConsulta("select v.*,  m.nombre as modelo, b.nombre as marca from vehiculos v, modelos m, marcas b where v.modelo_id = m.modelo_id and m.marca_id = b.marca_id and v.estado='Activo' and v.tipo like '%" + nombre + "%'");
                                     }
                                 }
                                 else{
-                                con.setConsulta("select * from Usuarios where estado='Activo'");
+                                con.setConsulta("select v.*,  m.nombre as modelo, b.nombre as marca from vehiculos v, modelos m, marcas b where v.modelo_id = m.modelo_id and m.marca_id = b.marca_id and v.estado='Activo';");
                                 }
                                 while(con.getResultado().next()){
                                     out.println("<tr>");
-                                    out.println("<td>" + con.getResultado().getString("usuario_id") + "</td>");
-                                    out.println("<td>" + con.getResultado().getString("usuario") + "</td>");
-                                    out.println("<td>" + con.getResultado().getString("clave") + "</td>");
-                                    out.println("<td>" + con.getResultado().getString("fecha_nacimiento") + "</td>");
-                                    out.println("<td><a href='../ServletUsuario?eliminar=" + con.getResultado().getString("usuario_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("usuario_id") + "' class='btn btn-success'>Editar Usuario</a></td>");
+                                    out.println("<td>" + con.getResultado().getString("vehiculo_id") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("tipo") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("patente") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("fecha_creacion") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("marca") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("modelo") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("creado_por") + "</td>");
+                                    out.println("<td><a href='../ServletVehiculo?eliminar=" + con.getResultado().getString("vehiculo_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("vehiculo_id") + "' class='btn btn-success'>Editar Vehiculo</a></td>");
                                     out.println("</tr>");
                                 }
                                 %>

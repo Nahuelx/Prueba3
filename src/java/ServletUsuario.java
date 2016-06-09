@@ -16,7 +16,7 @@ import negocio.Usuario;
  *
  * @author Administrador
  */
-public class ServletUsuarios extends HttpServlet {
+public class ServletUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,12 +33,10 @@ public class ServletUsuarios extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             if(request.getParameter("crear")!=null){
-                int usuario_id = Integer.parseInt(request.getParameter("usuario_id"));
                 String usuario = request.getParameter("usuario");
-                String clave = request.getParameter("usuario");
-                String fecha_nacimiento = request.getParameter("usuario");
+                String clave = request.getParameter("clave");
+                String fecha_nacimiento = request.getParameter("fecha_nacimiento");
                 Usuario user = new Usuario();
-                user.setUsuario_id(usuario_id);
                 user.setUsuario(usuario);
                 user.setClave(clave);
                 user.setFecha_nacimiento(fecha_nacimiento);
@@ -48,8 +46,8 @@ public class ServletUsuarios extends HttpServlet {
             else if(request.getParameter("actualizar")!=null){
                 int usuario_id = Integer.parseInt(request.getParameter("usuario_id"));
                 String usuario = request.getParameter("usuario");
-                String clave = request.getParameter("usuario");
-                String fecha_nacimiento = request.getParameter("usuario");
+                String clave = request.getParameter("clave");
+                String fecha_nacimiento = request.getParameter("fecha_nacimiento");
                 Usuario user = new Usuario();
                 user.setUsuario_id(usuario_id);
                 user.setUsuario(usuario);
@@ -58,10 +56,12 @@ public class ServletUsuarios extends HttpServlet {
                 user.actualizarU();
                 response.sendRedirect("usuarios/index.jsp");
             }
-            else if(request.getParameter("editar")!=null){
-                int usuario_id = Integer.parseInt(request.getParameter("usuario_id"));
+            else if(request.getParameter("eliminar")!=null){
+                int usuario_id = Integer.parseInt(request.getParameter("eliminar"));
                 Usuario user = new Usuario();
+                user.setUsuario_id(usuario_id);
                 user.eliminarU();
+                response.sendRedirect("usuarios/index.jsp");
             }
         }
     }

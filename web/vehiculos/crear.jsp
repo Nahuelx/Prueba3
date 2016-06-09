@@ -1,3 +1,4 @@
+<%@page import="accesodato.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
     <head>
@@ -10,6 +11,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("usuario") == null) {
+                response.sendRedirect("../index.jsp");
+            }
+        %>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,11 +32,12 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.jsp">Inicio</a></li>
+                        <li><a href="../success.jsp">Inicio</a></li>
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -42,8 +50,8 @@
                         <h3 class="panel-title">Crear vehiculos</h3>
                     </div>
                     <div class="panel-body">
-                        
-                        
+
+
                         <form method="POST" action="../ServletVehiculo">
 
                             <div class="form-group">
@@ -51,38 +59,35 @@
                                 <input type="text" class="form-control" name="tipo" id="tipo" placeholder="Ingresar tipo">
 
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="patente">Patente</label>
                                 <input type="text" class="form-control" name="patente" id="patente" placeholder="Ingresar patente">
 
                             </div>
-                                
-                                <div class="form-group">
+
+                            <div class="form-group">
                                 <label for="fecha_creacion">Fecha de Creacion</label>
                                 <input type="date" class="form-control" name="fecha_creacion" id="fecha_creacion">
 
                             </div>
-                                
-                                <div class="form-group">
-                                <label for="modelo_id">ID del Modelo</label>
-                                <input type="text" class="form-control" name="modelo_id" id="modelo_id" placeholder="Ingresar ID del modelo">
 
+                            <div class="form-group">
+                                <label for="modelo_id">Modelo</label>
+                                <%
+                                    Conexion con = new Conexion();
+                                    con.setConsulta("select * from modelos");
+                                %>
+                                <select name="modelo_id" class="form-control" id="modelo_id">
+                                    <%while(con.getResultado().next()){
+                                        out.println("<option value='" + con.getResultado().getString("modelo_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                    } %>
+                                </select>
                             </div>
-                                
-                                <div class="form-group">
-                                <label for="creado_por">Creado por</label>
-                                <input type="text" class="form-control" name="creado_por" id="creado_por" placeholder="Ingresar el nombre del creador">
-
-                            </div>
-                                
-                            
                             <button type="submit" name="crear" class="btn btn-default">Guardar</button>
                         </form>
                         <br>
-                        <a href="../index.jsp" class="btn btn-danger">volver</a>
-                        
-            
+                        <a href="index.jsp" class="btn btn-danger">volver</a>
                     </div>
                 </div>
             </div>

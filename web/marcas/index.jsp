@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 06-06-2016, 09:01:04 PM
-    Author     : Administrador
---%>
-
 <%@page import="accesodato.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -41,14 +35,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+          <a class="navbar-brand" href="#">Prueba3</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="../success.jsp">Inicio</a></li>
+                        <li><a href="../usuarios/index.jsp">Usuarios</a></li>
+                        <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
+                        <li><a href="../modelos/index.jsp">Modelos</a></li>
+                        <li><a href="#">Marcas</a></li>
+                        <li><a href="../ServletLogin?out=si">Log-out</a></li>
+                    </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
@@ -58,10 +55,18 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Listar Usuarios</h3>
+                        <h3 class="panel-title">Lista de Marcas</h3>
                     </div>
                     <div class="panel-body">
-                        <a href="crear.jsp" class="btn btn-primary">NUEVO USUARIO</a>
+                        <form action="index.jsp" method="post" class="form-inline">
+                            <div class="form-group">
+                                <label for="buscar" class="control-label">Buscar por nombre : </label>
+                                <input type="text" name="buscar" id="buscar" class="form-control" />
+                            </div>
+                                <input type="submit" value="Buscar" class="btn btn-default" />
+                        </form>
+                        <br>
+                        <a href="crear.jsp" class="btn btn-primary">Nueva Marca</a>
                         <br><br>
                         <table class="table table-condensed table-hover">
                             <thead>
@@ -71,12 +76,23 @@
                             </thead>
                             <tbody>
                                 <% Conexion con = new Conexion();
+                                if(request.getParameter("buscar")!=null){
+                                    if(request.getParameter("buscar").isEmpty()){
+                                        con.setConsulta("select * from marcas where estado='Activo'");
+                                    }
+                                    else{
+                                        String nombre = request.getParameter("buscar");
+                                        con.setConsulta("select * from marcas where estado='Activo' and nombre like '%" + nombre + "%'");
+                                    }
+                                }
+                                else{
                                 con.setConsulta("select * from marcas where estado='Activo'");
+                                }
                                 while(con.getResultado().next()){
                                     out.println("<tr>");
                                     out.println("<td>" + con.getResultado().getString("marca_id") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("nombre") + "</td>");
-                                    out.println("<td><a href='' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='' class='btn btn-success'>Editar Usuario</a></td>");
+                                    out.println("<td><a href='../ServletMarca?eliminar=" + con.getResultado().getString("marca_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("marca_id") + "' class='btn btn-success'>Editar Marca</a></td>");
                                     out.println("</tr>");
                                 }
                                 %>

@@ -11,6 +11,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("usuario")==null){
+                response.sendRedirect("../index.jsp");
+            }
+        %>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,11 +32,12 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.jsp">Inicio</a></li>
+                        <li><a href="../success.jsp">Inicio</a></li>
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="index.jsp">Marcas</a></li>
+                        <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -55,7 +62,7 @@
                             <button type="submit" name="crear" class="btn btn-default">Guardar</button>
                         </form>
                         <br>
-                        <a href="../index.jsp" class="btn btn-danger">volver</a>
+                        <a href="index.jsp" class="btn btn-danger">volver</a>
                         
             
                     </div>

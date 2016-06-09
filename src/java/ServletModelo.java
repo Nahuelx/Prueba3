@@ -1,41 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import negocio.Marca;
+import negocio.Modelo;
 
-public class ServletMarcas extends HttpServlet {
+/**
+ *
+ * @author Kuper
+ */
+public class ServletModelo extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
             if(request.getParameter("crear")!=null){
-                int marca_id = Integer.parseInt(request.getParameter("marca_id"));
                 String nombre = request.getParameter("nombre");
-                Marca marca = new Marca();
-                marca.setMarca_id(marca_id);
-                marca.setNombre(nombre);
-                marca.crearMa();
-                response.sendRedirect("marcas/index.jsp");
+                int marca_id = Integer.parseInt(request.getParameter("marca_id"));
+                Modelo modelo = new Modelo();
+                modelo.setNombre(nombre);
+                modelo.setMarca_id(marca_id);
+                modelo.crearMo();
+                response.sendRedirect("modelos/index.jsp");
             }
             else if(request.getParameter("actualizar")!=null){
-                int marca_id = Integer.parseInt(request.getParameter("marca_id"));
+                int modelo_id = Integer.parseInt(request.getParameter("modelo_id"));
                 String nombre = request.getParameter("nombre");
-                Marca marca = new Marca();
-                marca.setMarca_id(marca_id);
-                marca.setNombre(nombre);
-                marca.actualizarMa();
-                response.sendRedirect("marcas/index.jsp");
-            }
-            else if(request.getParameter("editar")!=null){
                 int marca_id = Integer.parseInt(request.getParameter("marca_id"));
-                Marca marca = new Marca();
-                marca.eliminarMa();
+                Modelo modelo = new Modelo();
+                modelo.setModelo_id(modelo_id);
+                modelo.setNombre(nombre);
+                modelo.setMarca_id(marca_id);
+                modelo.actualizarMo();
+                response.sendRedirect("modelos/index.jsp");
+            }
+            else if(request.getParameter("eliminar")!=null){
+                int modelo_id = Integer.parseInt(request.getParameter("eliminar"));
+                Modelo modelo = new Modelo();
+                modelo.setModelo_id(modelo_id);
+                modelo.eliminarMo();
+                response.sendRedirect("modelos/index.jsp");
             }
         }
     }

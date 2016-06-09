@@ -1,3 +1,4 @@
+<%@page import="accesodato.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
     <head>
@@ -10,6 +11,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if(sesion.getAttribute("usuario")==null){
+                response.sendRedirect("../index.jsp");
+            }
+        %>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,11 +32,12 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.jsp">Inicio</a></li>
+                        <li><a href="../success.jsp">Inicio</a></li>
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
                         <li><a href="index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -53,15 +61,22 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="marca_id">ID de la Marca</label>
-                                <input type="text" class="form-control" name="marca_id" id="marca_id" placeholder="Ingresar ID de la marca">
-
+                                <label for="marca_id">Marca</label>
+                                <%
+                                    Conexion con = new Conexion();
+                                    con.setConsulta("select * from marcas");
+                                %>
+                                <select name="marca_id" class="form-control" id="marca_id">
+                                    <%while(con.getResultado().next()){
+                                        out.println("<option value='" + con.getResultado().getString("marca_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                    } %>
+                                </select>
                             </div>
                             
                             <button type="submit" name="crear" class="btn btn-default">Guardar</button>
                         </form>
                         <br>
-                        <a href="../index.jsp" class="btn btn-danger">volver</a>
+                        <a href="index.jsp" class="btn btn-danger">volver</a>
                         
             
                     </div>

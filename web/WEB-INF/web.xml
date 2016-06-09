@@ -5,24 +5,40 @@
         <servlet-class>ServletLogin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletMarcas</servlet-name>
-        <servlet-class>ServletMarcas</servlet-class>
+        <servlet-name>ServletMarca</servlet-name>
+        <servlet-class>ServletMarca</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletUsuarios</servlet-name>
-        <servlet-class>ServletUsuarios</servlet-class>
+        <servlet-name>ServletUsuario</servlet-name>
+        <servlet-class>ServletUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletModelo</servlet-name>
+        <servlet-class>ServletModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletVehiculo</servlet-name>
+        <servlet-class>ServletVehiculo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletMarcas</servlet-name>
-        <url-pattern>/ServletMarcas</url-pattern>
+        <servlet-name>ServletMarca</servlet-name>
+        <url-pattern>/ServletMarca</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletUsuarios</servlet-name>
-        <url-pattern>/ServletUsuarios</url-pattern>
+        <servlet-name>ServletUsuario</servlet-name>
+        <url-pattern>/ServletUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModelo</servlet-name>
+        <url-pattern>/ServletModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVehiculo</servlet-name>
+        <url-pattern>/ServletVehiculo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

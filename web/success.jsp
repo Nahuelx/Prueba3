@@ -11,6 +11,12 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="template/css/bootstrap.min.css" rel="stylesheet">
+        <%
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("usuario") == null) {
+                response.sendRedirect("index.jsp");
+            }
+        %>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -22,22 +28,29 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Proyecto Java Enterprise Edition</a>
+                    <a class="navbar-brand" href="#">Prueba3</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="usuarios">Usuarios</a></li>
-                        <li><a href="ciudades">Ciudades</a></li>
-                        <li><a href="reportes">Reportes</a></li>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="usuarios/index.jsp">Usuarios</a></li>
+                        <li><a href="vehiculos/index.jsp">Vehiculos</a></li>
+                        <li><a href="modelos/index.jsp">Modelos</a></li>
+                        <li><a href="marcas/index.jsp">Marcas</a></li>
+                        <li><a href="ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
         <div class="container">
-            <br><br><br><br><br><br><br><br>
+            <br><br><br>
+            <div class="page-header">
+                        <h1>Prueba Java Web para Programación 2</h1>
+                    </div>
+            
             <div class="row">
                 <div class="panel panel-primary" id="test">
+                    
                     <div class="panel-heading">
                         <h3 class="panel-title">Menú</h3>
                     </div>

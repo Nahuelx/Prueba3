@@ -36,13 +36,12 @@ public class Marca {
         this.estado = estado;
     }
     public void crearMa(){
-        con.setConsulta("insert into Marca(nombre,estado)" +
-                "values('" + this.getNombre() + "','Activo')");
+        con.setInsertar("insert into marcas(nombre,estado) values('" + this.getNombre() + "','Activo');");
     }
     public void eliminarMa(){
-        con.setConsulta("update Marca set estado='Pasivo' where marca_id='" + this.getMarca_id() + "'");
+        con.setInsertar("update marcas set estado='Pasivo' where marca_id='" + this.getMarca_id() + "'");
     }
     public void actualizarMa(){
-        con.setConsulta("update Marca set nombre='" + this.getNombre() +"' where marca_id ='" + this.getMarca_id() + "'");
+        con.setInsertar("update marcas set nombre='" + this.getNombre() +"' where marca_id ='" + this.getMarca_id() + "'");
     }
 }
