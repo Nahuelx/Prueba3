@@ -1,4 +1,4 @@
-<%@page import="accesodato.Coneccion"%>
+<%@page import="accesodato.Conexion"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,9 +26,11 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="../index.jsp">Inicio</a></li>
+                        <li><a href="../usuarios/index.jsp">Usuarios</a></li>
+                        <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
+                        <li><a href="index.jsp">Modelos</a></li>
+                        <li><a href="../marcas/index.jsp">Marcas</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -42,15 +44,15 @@
                     </div>
                     <%
                         int id = Integer.parseInt(request.getParameter("editar"));
-                        Coneccion con = new Coneccion();
+                        Conexion con = new Conexion();
                         con.setConsulta("select * from Modelos where modelo_id ='" + id + "'");
                     %>
                     <div class="panel-body">
                         <% while (con.getResultado().next()) {  %>
 
-                        <form method="POST" action="../ServletUsuario?editar=si">
+                        <form method="POST" action="../ServletModelo?editar=si">
 
-                            <input type="text" readonly="true" value='<% out.println("" + con.getResultado().getString("usuario_id")); %>' name="id">
+                            <input type="text" readonly="true" value='<% out.println("" + con.getResultado().getString("modelo_id")); %>' name="id">
 
                             <div class="form-group">
                                 <label for="nombre"> Nombre </label>
@@ -58,12 +60,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="nombre"> ID de la Marca </label>
+                                <label for="marca_id"> ID de la Marca </label>
                                 <input type="text" class="form-control" name="marca_id" value='<% out.println("" + con.getResultado().getString("marca_id")); %>' id="nombre" placeholder="Ingresar ID de la Marca">
                             </div>
 
 
-                            <button type="submit" class="btn btn-default">ACTUALIZAR</button>
+                            <button type="submit" name="actualizar" class="btn btn-default">Actualizar</button>
                         </form>
                         <% }%> 
 
