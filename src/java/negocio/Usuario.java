@@ -6,7 +6,7 @@ public class Usuario {
 
     private int usuario_id;
     private String usuario;
-    private int clave;
+    private String clave;
     private String fecha_nacimiento;
     private String estado;
     Conexion con;
@@ -31,11 +31,11 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public int getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 

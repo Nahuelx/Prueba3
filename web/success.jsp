@@ -11,12 +11,6 @@
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
         <link href="template/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            #test{
-                width: 570px;
-                margin: 0 auto;
-            }
-        </style>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
