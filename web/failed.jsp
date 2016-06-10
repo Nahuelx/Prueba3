@@ -34,7 +34,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Prueba 3</a>
+                    <a class="navbar-brand" href="#">Prueba3</a>
                 </div>
             </div>
         </nav>
@@ -46,7 +46,7 @@
                         <h3 class="panel-title">Log-in fallido</h3>
                     </div>
                     <div class="panel-body">
-                        <h4>No se ja podido encontrar el usuario/contraseña que usted ha ingresado</h4><a href="index.jsp" class="btn btn-default">Volver</a></h4
+                        <h4>No se ja podido encontrar el usuario/contraseña que usted ha ingresado</h4><a href="index.jsp" class="btn btn-danger">Volver</a></h4
                     </div>
                 </div>
             </div>

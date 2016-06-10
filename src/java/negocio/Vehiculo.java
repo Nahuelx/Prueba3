@@ -80,7 +80,7 @@ public class Vehiculo {
         con.setInsertar("update Vehiculos set estado='Pasivo' where vehiculo_id ='" + this.getVehiculo_id() + "';");
     }
     public void actualizarV(){
-        con.setInsertar("update Vehiculos set tipo='" + this.getTipo() +"', patente='" + this.getPatente() +"',fecha_creacion='" + this.getFecha_creacion() + "',modelo_id = '" + this.getModelo_id() + "',creado_por='" + this.getCreado_por() + "' where vehiculo_id ='" + this.getVehiculo_id() + "';");
+        con.setInsertar("update Vehiculos set tipo='" + this.getTipo() +"', patente='" + this.getPatente() +"',fecha_creacion='" + this.getFecha_creacion() + "',modelo_id = '" + this.getModelo_id() + "' where vehiculo_id ='" + this.getVehiculo_id() + "';");
     }
     
 }
