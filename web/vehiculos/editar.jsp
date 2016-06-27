@@ -38,6 +38,9 @@
                         <li><a href="index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="../ciudades/index.jsp">Ciudades</a></li>
+                        <li><a href="../paises/index.jsp">Paises</a></li>
+                        <li><a href="../reportes/index.jsp">Reportes</a></li>
                         <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->

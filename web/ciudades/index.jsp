@@ -43,8 +43,8 @@
                         <li><a href="../usuarios/index.jsp">Usuarios</a></li>
                         <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
-                        <li><a href="#">Marcas</a></li>
-                        <li><a href="../ciudades/index.jsp">Ciudades</a></li>
+                        <li><a href="../marcas/index.jsp">Marcas</a></li>
+                        <li><a href="#">Ciudades</a></li>
                         <li><a href="../paises/index.jsp">Paises</a></li>
                         <li><a href="../reportes/index.jsp">Reportes</a></li>
                         <li><a href="../ServletLogin?out=si">Log-out</a></li>
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Lista de Marcas</h3>
+                        <h3 class="panel-title">Lista de Ciudades</h3>
                     </div>
                     <div class="panel-body">
                         <form action="index.jsp" method="post" class="form-inline">
@@ -69,33 +69,35 @@
                                 <input type="submit" value="Buscar" class="btn btn-default" />
                         </form>
                         <br>
-                        <a href="crear.jsp" class="btn btn-primary">Nueva Marca</a>
+                        <a href="crear.jsp" class="btn btn-primary">Nueva Ciudad</a>
                         <br><br>
                         <table class="table table-condensed table-hover">
                             <thead>
                                 <th>ID</th>
                                 <th>Nombre</th>
+                                <th>Pais</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                                 <% Conexion con = new Conexion();
                                 if(request.getParameter("buscar")!=null){
                                     if(request.getParameter("buscar").isEmpty()){
-                                        con.setConsulta("select * from marcas where estado='Activo'");
+                                        con.setConsulta("select c.*, p.nombre as pais from ciudades c, paises p where c.pais_id = p.pais_id and c.estado='Activo'");
                                     }
                                     else{
                                         String nombre = request.getParameter("buscar");
-                                        con.setConsulta("select * from marcas where estado='Activo' and nombre like '%" + nombre + "%'");
+                                        con.setConsulta("select c.*, p.nombre as pais from ciudades c, paises p where c.pais_id = p.pais_id and c.estado='Activo' and c.nombre like '%" + nombre + "%'");
                                     }
                                 }
                                 else{
-                                con.setConsulta("select * from marcas where estado='Activo'");
+                                con.setConsulta("select c.*, p.nombre as pais from ciudades c, paises p where c.pais_id = p.pais_id and c.estado='Activo'");
                                 }
                                 while(con.getResultado().next()){
                                     out.println("<tr>");
-                                    out.println("<td>" + con.getResultado().getString("marca_id") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("ciudad_id") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("nombre") + "</td>");
-                                    out.println("<td><a href='../ServletMarca?eliminar=" + con.getResultado().getString("marca_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("marca_id") + "' class='btn btn-success'>Editar Marca</a></td>");
+                                    out.println("<td>" + con.getResultado().getString("pais") + "</td>");
+                                    out.println("<td><a href='../ServletCiudad?eliminar=" + con.getResultado().getString("ciudad_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("ciudad_id") + "' class='btn btn-success'>Editar Ciudad</a></td>");
                                     out.println("</tr>");
                                 }
                                 %>
