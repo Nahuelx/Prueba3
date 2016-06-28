@@ -11,6 +11,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
@@ -57,27 +58,68 @@
                         int id = Integer.parseInt(request.getParameter("editar"));
                         Conexion con = new Conexion();
                         con.setConsulta("select * from Usuarios where usuario_id='" + id + "'");
+                        String ciudad_id = "";
                     %>
                     <div class="panel-body">
-                        <% while (con.getResultado().next()) {  %>
+                        <%  while (con.getResultado().next()) {  
+                            ciudad_id = con.getResultado().getString("ciudad_id");
+                        %>
 
                         <form method="POST" action="../ServletUsuario">
                             <div class="form-group">
                                 <label for="usuario_id">ID</label>
                                 <input type="text" class="form-control" id="usuario_id" name="usuario_id" value='<% out.println("" + con.getResultado().getString("usuario_id")); %>' readonly="true">
                             </div>
+                            
                             <div class="form-group">
                                 <label for="nombre">Nombre </label>
                                 <input type="text" class="form-control" name="usuario" value='<% out.println("" + con.getResultado().getString("usuario")); %>' id="nombre" placeholder="Ingresar Nombre">
                             </div>
+                            
                             <div class="form-group">
                                 <label for="clave">Clave</label>
                                 <input type="text" class="form-control" name="clave" value='<% out.println("" + con.getResultado().getString("clave")); %>' id="nombre" placeholder="Ingresar clave">
                             </div>
+                            
                             <div class="form-group">
                                 <label for="fecha_nacimiento">Fecha de Nacimiento</label>
                                 <% out.println("<input type='date' class='form-control' name='fecha_nacimiento' value='" + con.getResultado().getString("fecha_nacimiento") + "' id='fecha_nacimiento'>"); %>
                             </div>
+                            
+                            <div class="form-group">
+                                <label for="paises">Pais</label>
+                                <select name="pais_id" id="paises" class="form-control">
+                                    <%
+                                        con.setConsulta("select * from ciudades where ciudad_id = '" + ciudad_id + "'");
+                                        String pais_id = "";
+                                        while (con.getResultado().next()) {
+                                            pais_id = con.getResultado().getString("pais_id");
+                                        }
+                                        con.setConsulta("select * from paises");%>
+                                    <%while (con.getResultado().next()) {
+                                            if (pais_id.equals(con.getResultado().getString("pais_id"))) {
+                                                out.println("<option value='" + con.getResultado().getString("pais_id") + "' selected>" + con.getResultado().getString("nombre") + "</option>");
+                                            } else {
+                                                out.println("<option value='" + con.getResultado().getString("pais_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                            }
+                                        }%>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ciudades">Ciudad</label>
+                                <select name="ciudad_id" id="ciudades" class="form-control">
+                                    <% con.setConsulta("select * from ciudades where pais_id = '" + pais_id + "'");%>
+                                    <%while (con.getResultado().next()) {
+                                            if (ciudad_id.equals(con.getResultado().getString("ciudad_id"))) {
+                                                out.println("<option value='" + con.getResultado().getString("ciudad_id") + "' selected>" + con.getResultado().getString("nombre") + "</option>");
+                                            } else {
+                                                out.println("<option value='" + con.getResultado().getString("ciudad_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                            }
+                                        }%>
+                                </select>
+                            </div>
+                                
                             <button type="submit" name="actualizar" class="btn btn-default">Actualizar</button>
                         </form>
                         <% }%> 
@@ -88,6 +130,22 @@
         </div><!-- /.container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../template/js/bootstrap.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('select').select2();
+                
+                $("#paises").change(function () {
+                    $("#ciudades").empty();
+                    $('#ciudades').append('<option> Seleccionar Ciudad</option>');
+                    var pais_id = $("#paises").val();
+                    $.get("http://localhost:8080/Prueba3/Recibir?pais_id=" + pais_id, function(data, status) {
+                        $.each(data, function(i, item) {
+                            $("#ciudades").append("<option value=" + item.ciudad_id + ">" + item.nombre + "</option>");
+                        });
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

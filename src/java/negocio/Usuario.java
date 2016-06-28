@@ -8,9 +8,10 @@ public class Usuario {
     private String usuario;
     private String clave;
     private String fecha_nacimiento;
+    private int ciudad_id;
     private String estado;
     Conexion con;
-
+    
     public Usuario() {
         con = new Conexion();
     }
@@ -54,10 +55,16 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    public int getCiudad_id() {
+        return ciudad_id;
+    }
 
+    public void setCiudad_id(int ciudad_id) {
+        this.ciudad_id = ciudad_id;
+    }
 
     public void crearU() {
-        con.setInsertar("insert into Usuarios(usuario, clave, fecha_nacimiento, estado) values ('" + this.getUsuario() + "','" +this.getClave()+"', '"+this.getFecha_nacimiento()+"','Activo')");
+        con.setInsertar("insert into Usuarios(usuario, clave, fecha_nacimiento, ciudad_id, estado) values ('" + this.getUsuario() + "','" +this.getClave()+"', '"+this.getFecha_nacimiento()+"','" + this.getCiudad_id() + "','Activo')");
     }
 
     public void eliminarU() {
@@ -65,7 +72,7 @@ public class Usuario {
     }
 
     public void actualizarU() {
-        con.setInsertar("update Usuarios set usuario='" + this.getUsuario() + "',clave='" + this.getClave() + "',fecha_nacimiento='" + this.getFecha_nacimiento() + "' where usuario_id='" + this.usuario_id + "'");
+        con.setInsertar("update Usuarios set usuario='" + this.getUsuario() + "',clave='" + this.getClave() + "',fecha_nacimiento='" + this.getFecha_nacimiento() + "',ciudad_id='" + this.getCiudad_id() + "' where usuario_id='" + this.usuario_id + "'");
 
     }
 }

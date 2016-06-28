@@ -76,6 +76,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Pais</th>
+                                <th>Creado por</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -97,6 +98,7 @@
                                     out.println("<td>" + con.getResultado().getString("ciudad_id") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("nombre") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("pais") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("creado_por") + "</td>");
                                     out.println("<td><a href='../ServletCiudad?eliminar=" + con.getResultado().getString("ciudad_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("ciudad_id") + "' class='btn btn-success'>Editar Ciudad</a></td>");
                                     out.println("</tr>");
                                 }

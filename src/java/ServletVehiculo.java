@@ -56,15 +56,12 @@ public class ServletVehiculo extends HttpServlet {
                 String patente = request.getParameter("patente");
                 String fecha_creacion = request.getParameter("fecha_creacion");
                 int modelo_id = Integer.parseInt(request.getParameter("modelo_id"));
-                HttpSession sesion = request.getSession();
-                String creado_por = String.valueOf(sesion.getAttribute("usuario"));
                 Vehiculo vehiculo = new Vehiculo();
                 vehiculo.setVehiculo_id(vehiculo_id);
                 vehiculo.setTipo(tipo);
                 vehiculo.setPatente(patente);
                 vehiculo.setFecha_creacion(fecha_creacion);
                 vehiculo.setModelo_id(modelo_id);
-                vehiculo.setCreado_por(creado_por);
                 vehiculo.actualizarV();
                 response.sendRedirect("vehiculos/index.jsp");
             }

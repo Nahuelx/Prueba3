@@ -10,62 +10,44 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import negocio.Usuario;
+import javax.servlet.http.HttpSession;
+import negocio.Ciudad;
 
-/**
- *
- * @author Administrador
- */
-public class ServletUsuario extends HttpServlet {
+public class ServletCiudad extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             if(request.getParameter("crear")!=null){
-                String usuario = request.getParameter("usuario");
-                String clave = request.getParameter("clave");
-                String fecha_nacimiento = request.getParameter("fecha_nacimiento");
-                int ciudad_id = Integer.parseInt(request.getParameter("ciudad_id"));
-                Usuario user = new Usuario();
-                user.setUsuario(usuario);
-                user.setClave(clave);
-                user.setFecha_nacimiento(fecha_nacimiento);
-                user.setCiudad_id(ciudad_id);
-                user.crearU();
-                response.sendRedirect("usuarios/index.jsp");
+                String nombre = request.getParameter("nombre");
+                int pais_id = Integer.parseInt(request.getParameter("pais_id"));
+                HttpSession sesion = request.getSession();
+                String creado_por = String.valueOf(sesion.getAttribute("usuario"));
+                Ciudad ciu = new Ciudad();
+                ciu.setNombre(nombre);
+                ciu.setPais_id(pais_id);
+                ciu.setCreado_por(creado_por);
+                ciu.crearC();
+                response.sendRedirect("ciudades/index.jsp");
             }
             else if(request.getParameter("actualizar")!=null){
-                int usuario_id = Integer.parseInt(request.getParameter("usuario_id"));
-                String usuario = request.getParameter("usuario");
-                String clave = request.getParameter("clave");
-                String fecha_nacimiento = request.getParameter("fecha_nacimiento");
                 int ciudad_id = Integer.parseInt(request.getParameter("ciudad_id"));
-                Usuario user = new Usuario();
-                user.setUsuario_id(usuario_id);
-                user.setUsuario(usuario);
-                user.setClave(clave);
-                user.setFecha_nacimiento(fecha_nacimiento);
-                user.setCiudad_id(ciudad_id);
-                user.actualizarU();
-                response.sendRedirect("usuarios/index.jsp");
+                String nombre = request.getParameter("nombre");
+                int pais_id = Integer.parseInt(request.getParameter("pais_id"));
+                Ciudad ciu = new Ciudad();
+                ciu.setCiudad_id(ciudad_id);
+                ciu.setNombre(nombre);
+                ciu.setPais_id(pais_id);
+                ciu.actualizarC();
+                response.sendRedirect("ciudades/index.jsp");
             }
             else if(request.getParameter("eliminar")!=null){
-                int usuario_id = Integer.parseInt(request.getParameter("eliminar"));
-                Usuario user = new Usuario();
-                user.setUsuario_id(usuario_id);
-                user.eliminarU();
-                response.sendRedirect("usuarios/index.jsp");
+                int ciudad_id = Integer.parseInt(request.getParameter("eliminar"));
+                Ciudad ciu = new Ciudad();
+                ciu.setCiudad_id(ciudad_id);
+                ciu.eliminarC();
+                response.sendRedirect("ciudades/index.jsp");
             }
         }
     }

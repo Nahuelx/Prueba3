@@ -77,21 +77,22 @@
                                 <th>Nombre</th>
                                 <th>Clave</th>
                                 <th>Fecha de nacimiento</th>
+                                <th>Ciudad</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                                 <% Conexion con = new Conexion();
                                 if(request.getParameter("buscar")!=null){
                                     if(request.getParameter("buscar").isEmpty()){
-                                        con.setConsulta("select * from Usuarios where estado='Activo'");
+                                        con.setConsulta("select u.*, c.nombre as ciudad from Usuarios u, Ciudades c where u.ciudad_id = c.ciudad_id and u.estado='Activo'");
                                     }
                                     else{
                                         String nombre = request.getParameter("buscar");
-                                        con.setConsulta("select * from Usuarios where estado='Activo' and usuario like '%" + nombre + "%'");
+                                        con.setConsulta("select u.*, c.nombre as ciudad from Usuarios u, Ciudades c where u.ciudad_id = c.ciudad_id and u.estado='Activo' and u.usuario like '%" + nombre + "%'");
                                     }
                                 }
                                 else{
-                                con.setConsulta("select * from Usuarios where estado='Activo'");
+                                con.setConsulta("select u.*, c.nombre as ciudad from Usuarios u, Ciudades c where u.ciudad_id = c.ciudad_id and u.estado='Activo'");
                                 }
                                 while(con.getResultado().next()){
                                     out.println("<tr>");
@@ -99,6 +100,7 @@
                                     out.println("<td>" + con.getResultado().getString("usuario") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("clave") + "</td>");
                                     out.println("<td>" + con.getResultado().getString("fecha_nacimiento") + "</td>");
+                                    out.println("<td>" + con.getResultado().getString("ciudad") + "</td>");
                                     out.println("<td><a href='../ServletUsuario?eliminar=" + con.getResultado().getString("usuario_id") + "' class='btn btn-danger'>Eliminar</a>&nbsp;&nbsp;<a href='editar.jsp?editar=" + con.getResultado().getString("usuario_id") + "' class='btn btn-success'>Editar Usuario</a></td>");
                                     out.println("</tr>");
                                 }

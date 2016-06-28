@@ -20,6 +20,18 @@
         <servlet-name>ServletVehiculo</servlet-name>
         <servlet-class>ServletVehiculo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Recibir</servlet-name>
+        <servlet-class>Recibir</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletPais</servlet-name>
+        <servlet-class>ServletPais</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletCiudad</servlet-name>
+        <servlet-class>ServletCiudad</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -39,6 +51,18 @@
     <servlet-mapping>
         <servlet-name>ServletVehiculo</servlet-name>
         <url-pattern>/ServletVehiculo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Recibir</servlet-name>
+        <url-pattern>/Recibir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletPais</servlet-name>
+        <url-pattern>/ServletPais</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCiudad</servlet-name>
+        <url-pattern>/ServletCiudad</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

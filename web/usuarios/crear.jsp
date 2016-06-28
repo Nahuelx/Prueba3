@@ -10,6 +10,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
@@ -60,21 +61,30 @@
                             <div class="form-group">
                                 <label for="nombre">Nombre del Usuario</label>
                                 <input type="text" class="form-control" name="usuario" id="nombre" placeholder="Ingresar nombre del usuario">
-
                             </div>
 
                             <div class="form-group">
                                 <label for="clave">Clave</label>
                                 <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingresar clave">
-
                             </div>
 
                             <div class="form-group">
                                 <label for="fecha_nacimiento">Fecha de Nacimiento</label>
                                 <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" >
-
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clave">Pais</label>
+                                <select type="select" class="form-control" name="pais" id="paises">
+                                </select>
                             </div>
 
+                            <div class="form-group">
+                                <label for="clave">Ciudad</label>
+                                <select type="select" class="form-control" name="ciudad_id" id="ciudades">
+                                </select>
+                            </div>
+                            
                             <button type="submit" name="crear" class="btn btn-default">Guardar</button>
                         </form>
                         <br>
@@ -87,6 +97,27 @@
         </div><!-- /.container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../template/js/bootstrap.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('select').select2();
+                $('#paises').append('<option value="none"> Seleccionar Pais</option>');
+                $.get("http://localhost:8080/Prueba3/Recibir", function (data, status) {
+                    $.each(data, function (i, item) {
+                        $("#paises").append("<option value=" + item.pais_id + ">" + item.nombre + "</option>");
+                    });
+                });
+                $("#paises").change(function () {
+                    $("#ciudades").empty();
+                    $('#ciudades').append('<option> Seleccionar Ciudad</option>');
+                    var pais_id = $("#paises").val();
+                    $.get("http://localhost:8080/Prueba3/Recibir?pais_id=" + pais_id, function(data, status) {
+                        $.each(data, function(i, item) {
+                            $("#ciudades").append("<option value=" + item.ciudad_id + ">" + item.nombre + "</option>");
+                        });
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

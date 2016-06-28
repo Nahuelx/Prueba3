@@ -14,7 +14,7 @@
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
-            if(sesion.getAttribute("usuario")==null){
+            if (sesion.getAttribute("usuario") == null) {
                 response.sendRedirect("../index.jsp");
             }
         %>
@@ -38,8 +38,8 @@
                         <li><a href="../vehiculos/index.jsp">Vehiculos</a></li>
                         <li><a href="../modelos/index.jsp">Modelos</a></li>
                         <li><a href="../marcas/index.jsp">Marcas</a></li>
-                        <li><a href="../ciudades/index.jsp">Ciudades</a></li>
-                        <li><a href="index.jsp">Paises</a></li>
+                        <li><a href="index.jsp">Ciudades</a></li>
+                        <li><a href="../paises/index.jsp">Paises</a></li>
                         <li><a href="../ServletLogin?out=si">Log-out</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -50,22 +50,31 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Actualizar Pais</h3>
+                        <h3 class="panel-title">Nueva Ciudad</h3>
                     </div>
                     <%
                         Conexion con = new Conexion();
                     %>
                     <div class="panel-body">
 
-                        <form method="POST" action="../ServletPais">
+                        <form method="POST" action="../ServletCiudad">
                             <div class="form-group">
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre </label>
                                 <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar Nombre">
                             </div>
-        
-                            <button type="submit" name="actualizar" class="btn btn-default">Crear</button>
+
+                            <div class="form-group">
+                                <label for="pais">Pais </label>
+                                <select name="pais_id" class="form-control" id="paises">
+                                    <%  con.setConsulta("select * from paises");
+                                        while (con.getResultado().next()) {
+                                            out.println("<option value='" + con.getResultado().getString("pais_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                    }%>
+                                </select>
+                            </div>
+                            <button type="submit" name="crear" class="btn btn-default">Crear</button>
                         </form>
                     </div>
                 </div>
@@ -73,6 +82,5 @@
         </div><!-- /.container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../template/js/bootstrap.min.js"></script>
-
     </body>
 </html>
