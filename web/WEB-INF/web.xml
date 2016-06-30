@@ -32,6 +32,10 @@
         <servlet-name>ServletCiudad</servlet-name>
         <servlet-class>ServletCiudad</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletReporte</servlet-name>
+        <servlet-class>ServletReporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ServletCiudad</servlet-name>
         <url-pattern>/ServletCiudad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletReporte</servlet-name>
+        <url-pattern>/ServletReporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

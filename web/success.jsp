@@ -65,6 +65,7 @@
                             <a href="modelos/index.jsp" class="list-group-item">Modelos</a>
                             <a href="ciudades/index.jsp" class="list-group-item">Ciudades</a>
                             <a href="paises/index.jsp" class="list-group-item">Paises</a>
+                            <a href="reportes/index.jsp" class="list-group-item">Reportes</a>
                         </div>
                     </div>
                 </div>

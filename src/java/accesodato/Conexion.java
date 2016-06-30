@@ -60,5 +60,8 @@ public class Conexion {
         }
       
     }
+    public Connection getConexion(){
+        return con;
+    }
 
 }
