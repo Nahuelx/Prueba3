@@ -37,7 +37,19 @@ public class Recibir extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             Conexion con = new Conexion();
-            if(request.getParameter("pais_id") != null){
+            if(request.getParameter("modelo") != null){
+                con.setConsulta("select * from ciudades where estado = 'Activo'");
+                ArrayList lista = new ArrayList();
+                try{
+                    while(con.getResultado().next()){
+                        
+                    }
+                }
+                catch(Exception ex){
+                    
+                }
+            }
+            else if(request.getParameter("pais_id") != null){
                 String pais_id = request.getParameter("pais_id");
                 con.setConsulta("select * from ciudades where pais_id = '" + pais_id + "' and estado='Activo'");
                 ArrayList lista = new ArrayList();

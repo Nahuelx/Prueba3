@@ -10,6 +10,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <title>Starter Template for Bootstrap</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
@@ -74,17 +75,16 @@
                                 <input type="date" class="form-control" name="fecha_creacion" id="fecha_creacion">
 
                             </div>
-
+                            
                             <div class="form-group">
-                                <label for="modelo_id">Modelo</label>
-                                <%
-                                    Conexion con = new Conexion();
-                                    con.setConsulta("select * from modelos");
-                                %>
-                                <select name="modelo_id" class="form-control" id="modelo_id">
-                                    <%while(con.getResultado().next()){
-                                        out.println("<option value='" + con.getResultado().getString("modelo_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
-                                    } %>
+                                <label for="marcas">Marca</label>
+                                <select name="marca_id" class="form-control" id="marcas">
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="modelos">Modelo</label>
+                                <select name="modelo_id" class="form-control" id="modelos">
                                 </select>
                             </div>
                             <button type="submit" name="crear" class="btn btn-default">Guardar</button>
@@ -97,6 +97,27 @@
         </div><!-- /.container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../template/js/bootstrap.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('select').select2();
+                $('#modelos').append('<option value="none"> Seleccionar Modelo</option>');
+                $.get("http://localhost:8080/Prueba3/Recibir?modelo=si", function (data, status) {
+                    $.each(data, function (i, item) {
+                        $("#paises").append("<option value=" + item.pais_id + ">" + item.nombre + "</option>");
+                    });
+                });
+                $("#paises").change(function () {
+                    $("#ciudades").empty();
+                    $('#ciudades').append('<option> Seleccionar Ciudad</option>');
+                    var pais_id = $("#paises").val();
+                    $.get("http://localhost:8080/Prueba3/Recibir?pais_id=" + pais_id, function(data, status) {
+                        $.each(data, function(i, item) {
+                            $("#ciudades").append("<option value=" + item.ciudad_id + ">" + item.nombre + "</option>");
+                        });
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

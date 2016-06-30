@@ -6,12 +6,8 @@ public class Marca {
     private int marca_id;
     private String nombre;
     private String estado;
-    Conexion con = null;
+    Conexion con;
     
-    public Marca(){
-        con = new Conexion();
-    }
-
     public int getMarca_id() {
         return marca_id;
     }
@@ -36,12 +32,15 @@ public class Marca {
         this.estado = estado;
     }
     public void crearMa(){
+        con = new Conexion();
         con.setInsertar("insert into marcas(nombre,estado) values('" + this.getNombre() + "','Activo');");
     }
     public void eliminarMa(){
+        con = new Conexion();
         con.setInsertar("update marcas set estado='Pasivo' where marca_id='" + this.getMarca_id() + "'");
     }
     public void actualizarMa(){
+        con = new Conexion();
         con.setInsertar("update marcas set nombre='" + this.getNombre() +"' where marca_id ='" + this.getMarca_id() + "'");
     }
 }

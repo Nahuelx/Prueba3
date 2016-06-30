@@ -9,11 +9,7 @@ public class Modelo {
     private int marca_id;
     private String estado;
     Conexion con;
-
-    public Modelo() {
-        con = new Conexion();
-    }
-
+    
     public int getModelo_id() {
         return modelo_id;
     }
@@ -47,15 +43,17 @@ public class Modelo {
     }
 
     public void crearMo() {
+        con = new Conexion();
         con.setInsertar("insert into Modelos(nombre, marca_id, estado) values ('" + this.getNombre() + "','" + this.getMarca_id() + "','Activo')");
     }
 
     public void eliminarMo() {
+        con = new Conexion();
         con.setInsertar("update Modelos set estado = 'pasivo' where modelo_id = '" + this.getModelo_id() + "'");
     }
 
     public void actualizarMo() {
+        con = new Conexion();
         con.setInsertar("update Modelos set nombre= '"+ this.getNombre()+"', marca_id= '"+ this.getMarca_id()+"' where modelo_id='" + this.modelo_id + "'");
-
     }
 }
