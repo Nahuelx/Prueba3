@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import negocio.Ciudad;
+import negocio.Marca;
+import negocio.Modelo;
 import negocio.Pais;
 
 /**
@@ -35,26 +37,58 @@ public class Recibir extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             Conexion con = new Conexion();
-            if(request.getParameter("modelo") != null){
-                con.setConsulta("select * from ciudades where estado = 'Activo'");
+            if (request.getParameter("marcas") != null) {
+                con.setConsulta("select * from marcas where estado = 'Activo'");
                 ArrayList lista = new ArrayList();
-                try{
-                    while(con.getResultado().next()){
-                        
+                try {
+                    while (con.getResultado().next()) {
+                        Marca mar = new Marca();
+                        mar.setMarca_id(con.getResultado().getInt("marca_id"));
+                        mar.setNombre(con.getResultado().getString("nombre"));
+                        mar.setEstado(con.getResultado().getString("estado"));
+                        lista.add(mar);
                     }
+                } catch (Exception ex) {
+
                 }
-                catch(Exception ex){
-                    
+                String json = new Gson().toJson(lista);
+                //setear aplicacion json
+                response.setContentType("application/json");
+                //encodear a utf8
+                response.setCharacterEncoding("UTF-8");
+                //mostrar o imprimir el json
+                response.getWriter().write(json);
+            } else if (request.getParameter("marca_id") != null) {
+                String marca_id = request.getParameter("marca_id");
+                con.setConsulta("select * from modelos where marca_id = '" + marca_id + "' and estado='Activo'");
+                ArrayList lista = new ArrayList();
+                try {
+                    while (con.getResultado().next()) {
+                        Modelo mod = new Modelo();
+                        mod.setModelo_id(con.getResultado().getInt("modelo_id"));
+                        mod.setNombre(con.getResultado().getString("nombre"));
+                        mod.setMarca_id(con.getResultado().getInt("marca_id"));
+                        mod.setEstado(con.getResultado().getString("estado"));
+                        lista.add(mod);
+                    }
+                } catch (Exception ex) {
+
                 }
-            }
-            else if(request.getParameter("pais_id") != null){
+                String json = new Gson().toJson(lista);
+                //setear aplicacion json
+                response.setContentType("application/json");
+                //encodear a utf8
+                response.setCharacterEncoding("UTF-8");
+                //mostrar o imprimir el json
+                response.getWriter().write(json);
+            } else if (request.getParameter("pais_id") != null) {
                 String pais_id = request.getParameter("pais_id");
                 con.setConsulta("select * from ciudades where pais_id = '" + pais_id + "' and estado='Activo'");
                 ArrayList lista = new ArrayList();
                 try {
-                    while(con.getResultado().next()) {
+                    while (con.getResultado().next()) {
                         Ciudad ciu = new Ciudad();
                         ciu.setCiudad_id(con.getResultado().getInt("ciudad_id"));
                         ciu.setNombre(con.getResultado().getString("nombre"));
@@ -62,40 +96,39 @@ public class Recibir extends HttpServlet {
                         ciu.setEstado(con.getResultado().getString("estado"));
                         lista.add(ciu);
                     }
-                } catch (Exception ex){
-                    
+                } catch (Exception ex) {
+
                 }
                 //variable json con arraylist
-            String json = new Gson().toJson(lista);
-            //setear aplicacion json
-            response.setContentType("application/json");
-            //encodear a utf8
-            response.setCharacterEncoding("UTF-8");
-            //mostrar o imprimir el json
-            response.getWriter().write(json);
-            }
-            else {
+                String json = new Gson().toJson(lista);
+                //setear aplicacion json
+                response.setContentType("application/json");
+                //encodear a utf8
+                response.setCharacterEncoding("UTF-8");
+                //mostrar o imprimir el json
+                response.getWriter().write(json);
+            } else {
                 con.setConsulta("select * from Paises where estado='Activo'");
-            ArrayList lista = new ArrayList();
-            //Crear objetos y guardarlos en lista
-            try {
-                while(con.getResultado().next()){
-                    Pais pais = new Pais();
-                    pais.setPais_id(con.getResultado().getInt("pais_id"));
-                    pais.setNombre(con.getResultado().getString("nombre"));
-                    pais.setEstado(con.getResultado().getString("estado"));
-                    lista.add(pais);
+                ArrayList lista = new ArrayList();
+                //Crear objetos y guardarlos en lista
+                try {
+                    while (con.getResultado().next()) {
+                        Pais pais = new Pais();
+                        pais.setPais_id(con.getResultado().getInt("pais_id"));
+                        pais.setNombre(con.getResultado().getString("nombre"));
+                        pais.setEstado(con.getResultado().getString("estado"));
+                        lista.add(pais);
+                    }
+                } catch (Exception ex) {
                 }
-            } catch (Exception ex) {
-            }
-            //variable json con arraylist
-            String json = new Gson().toJson(lista);
-            //setear aplicacion json
-            response.setContentType("application/json");
-            //encodear a utf8
-            response.setCharacterEncoding("UTF-8");
-            //mostrar o imprimir el json
-            response.getWriter().write(json);
+                //variable json con arraylist
+                String json = new Gson().toJson(lista);
+                //setear aplicacion json
+                response.setContentType("application/json");
+                //encodear a utf8
+                response.setCharacterEncoding("UTF-8");
+                //mostrar o imprimir el json
+                response.getWriter().write(json);
             }
         }
     }

@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <title>Starter Template for Bootstrap</title>
+        <title>Prueba 4 JavaEE</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
@@ -101,19 +101,19 @@
         <script>
             $(document).ready(function () {
                 $('select').select2();
-                $('#modelos').append('<option value="none"> Seleccionar Modelo</option>');
-                $.get("http://localhost:8080/Prueba3/Recibir?modelo=si", function (data, status) {
+                $('#marcas').append('<option value="none"> Seleccionar Marca</option>');
+                $.get("http://localhost:8080/Prueba3/Recibir?marcas=si", function (data, status) {
                     $.each(data, function (i, item) {
-                        $("#paises").append("<option value=" + item.pais_id + ">" + item.nombre + "</option>");
+                        $("#marcas").append("<option value=" + item.marca_id + ">" + item.nombre + "</option>");
                     });
                 });
-                $("#paises").change(function () {
-                    $("#ciudades").empty();
-                    $('#ciudades').append('<option> Seleccionar Ciudad</option>');
-                    var pais_id = $("#paises").val();
-                    $.get("http://localhost:8080/Prueba3/Recibir?pais_id=" + pais_id, function(data, status) {
+                $("#marcas").change(function () {
+                    $("#modelos").empty();
+                    $('#modelos').append('<option> Seleccionar Modelo</option>');
+                    var marca_id = $("#marcas").val();
+                    $.get("http://localhost:8080/Prueba3/Recibir?marca_id=" + marca_id, function(data, status) {
                         $.each(data, function(i, item) {
-                            $("#ciudades").append("<option value=" + item.ciudad_id + ">" + item.nombre + "</option>");
+                            $("#modelos").append("<option value=" + item.marca_id + ">" + item.nombre + "</option>");
                         });
                     });
                 });

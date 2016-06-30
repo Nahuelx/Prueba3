@@ -10,7 +10,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <title>Starter Template for Bootstrap</title>
+        <title>Prueba 4 JavaEE</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <link href="../template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
@@ -84,10 +85,31 @@
                                 <% out.println("<input type='date' class='form-control' name='fecha_creacion' value='" + con.getResultado().getString("fecha_creacion") + "' id='fecha_creacion'>"); %>
                             </div>
                             <% }%>
+                            
                             <div class="form-group">
-                                <label for="modelo_id">Modelo</label>
-                                <select name="modelo_id" id="modelo_id" class="form-control">
-                                    <% con.setConsulta("select * from modelos");%>
+                                <label for="marcas">Marca</label>
+                                <select name="marca_id" id="marcas" class="form-control">
+                                    <%  con.setConsulta("select * from modelos where modelo_id = '" + modelo + "'");
+                                        String marca_id = "";
+                                        while(con.getResultado().next()){
+                                            marca_id = con.getResultado().getString("marca_id");
+                                        }
+                                        con.setConsulta("select * from marcas");
+                                        while(con.getResultado().next()){
+                                            if(marca_id.equals(con.getResultado().getString("marca_id"))){
+                                                out.println("<option value='" + con.getResultado().getString("marca_id") + "' selected>" + con.getResultado().getString("nombre") + "</option>");
+                                            } else {
+                                                out.println("<option value='" + con.getResultado().getString("marca_id") + "'>" + con.getResultado().getString("nombre") + "</option>");
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="modelos">Modelo</label>
+                                <select name="modelo_id" id="modelos" class="form-control">
+                                    <% con.setConsulta("select * from modelos where marca_id = '" + marca_id + "'");%>
                                     <%while (con.getResultado().next()) {
                                             if (modelo.equals(con.getResultado().getString("modelo_id"))) {
                                                 out.println("<option value='" + con.getResultado().getString("modelo_id") + "' selected>" + con.getResultado().getString("nombre") + "</option>");
@@ -105,6 +127,23 @@
         </div><!-- /.container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../template/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('select').select2();
+                
+                $("#marcas").change(function () {
+                    $("#modelos").empty();
+                    $('#modelos').append('<option> Seleccionar Modelo</option>');
+                    var marca_id = $("#marcas").val();
+                    $.get("http://localhost:8080/Prueba3/Recibir?marca_id=" + marca_id, function(data, status) {
+                        $.each(data, function(i, item) {
+                            $("#modelos").append("<option value=" + item.modelo_id + ">" + item.nombre + "</option>");
+                        });
+                    });
+                });
+            });
+        </script>
 
     </body>
 </html>

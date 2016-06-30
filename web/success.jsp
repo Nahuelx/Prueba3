@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <title>Starter Template for Bootstrap</title>
+        <title>Prueba 4 JavaEE</title>
         <link href="template/css/bootstrap.min.css" rel="stylesheet">
         <%
             HttpSession sesion = request.getSession();
