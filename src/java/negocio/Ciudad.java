@@ -60,7 +60,7 @@ public class Ciudad {
     }
     public void actualizarC(){
         con = new Conexion();
-        con.setInsertar("update Ciudades set nombre='" + this.getNombre() +"',pais_id = '" + this.getPais_id() + "' where pais_id ='" + this.getCiudad_id() + "'");
+        con.setInsertar("update Ciudades set nombre='" + this.getNombre() +"',pais_id = '" + this.getPais_id() + "' where ciudad_id ='" + this.getCiudad_id() + "'");
     }
     
 }
