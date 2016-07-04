@@ -1,26 +1,71 @@
-create table Usuarios(
-usuario_id int(10) primary key not null auto_increment,
-usuario varchar(25),
-clave varchar(25),
-fecha_nacimiento date(10),
-estado varchar(25));
+create table Usuarios( usuario_id int(10) primary key not null auto_increment, usuario varchar(25), clave varchar(25), fecha_nacimiento date, ciudad_id int(10), estado varchar(25));
 
-create table Vehiculos(
-vehiculo_id int(10) primary key not null auto_increment,
-tipo varchar(25),
-patente varchar(25),
-fecha_creacion date,
-modelo_id int(10),
-estado varchar(25),
-creado_por varchar(25));
+create table Vehiculos( vehiculo_id int(10) primary key not null auto_increment, tipo varchar(25), patente varchar(25), fecha_creacion date, modelo_id int(10), estado varchar(25), creado_por varchar(25));
 
-create table Modelos(
-modelo_id int(10) primary key not null auto_increment,
-nombre varchar(25),
-marca_id int(10),
-estado varchar(25));
+create table Modelos( modelo_id int(10) primary key not null auto_increment, nombre varchar(25), marca_id int(10), estado varchar(25));
 
-create table Marcas(
-marca_id int(10) primary key not null auto_increment,
-nombre varchar(25),
-estado varchar(25));
+create table Marcas( marca_id int(10) primary key not null auto_increment, nombre varchar(25), estado varchar(25));
+
+create table Ciudades( ciudad_id int(10) primary key not null auto_increment, nombre varchar(25), pais_id int(10), estado varchar(25));
+
+create table Paises( pais_id int(10) primary key not null auto_increment, nombre varchar(25), estado varchar(25));
+
+insert into Usuarios(nombre, clave, fecha_nacimiento, ciudad_id, estado)
+values('Kuper','1234','1991-02-07','1','Activo');
+
+insert into Usuarios(nombre, clave, fecha_nacimiento, ciudad_id, estado)
+values('User1','1234','1900-01-01','2','Activo');
+
+insert into Vehiculos(tipo, patente, fecha_creacion, modelo_id, estado, creado_por)
+values('Camioneta','CAM-105','2016-03-20','1','Activo','Kuper');
+
+insert into Vehiculos(tipo, patente, fecha_creacion, modelo_id, estado, creado_por)
+values('Camioneta','OSX-105','2014-03-20','1','Activo','Kuper');
+
+insert into Vehiculos(tipo, patente, fecha_creacion, modelo_id, estado, creado_por)
+values('Deportivo','FGA-106','2016-02-01','2','Activo','User1');
+
+insert into Vehiculos(tipo, patente, fecha_creacion, modelo_id, estado, creado_por)
+values('Camion','POI-982','2016-04-10','2','Activo','User1');
+
+insert into Modelos(nombre, marca_id, estado)
+values('Model1','1','Activo');
+
+insert into Modelos(nombre, marca_id, estado)
+values('Model2','2','Activo');
+
+insert into Modelos(nombre, marca_id, estado)
+values('Model3','1','Activo');
+
+insert into Modelos(nombre, marca_id, estado)
+values('Model4','3','Activo');
+
+insert into Marcas(nombre, estado)
+values('Marca1','Activo');
+
+insert into Marcas(nombre, estado)
+values('Marca2','Activo');
+
+insert into Marcas(nombre, estado)
+values('Marca3','Activo');
+
+insert into Ciudades(nombre, pais_id, estado)
+values('Punta Arenas','1','Activo');
+
+insert into Ciudades(nombre, pais_id, estado)
+values('Santiago','1','Activo');
+
+insert into Ciudades(nombre, pais_id, estado)
+values('New York','2','Activo');
+
+insert into Ciudades(nombre, pais_id, estado)
+values('Tokio','3','Activo');
+
+insert into Paises(nombre, estado)
+values('Chile','Activo');
+
+insert into Paises(nombre, estado)
+values('Estados Unidos','Activo');
+
+insert into Paises(nombre, estado)
+values('Japon','Activo');
