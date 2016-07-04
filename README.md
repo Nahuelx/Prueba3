@@ -6,6 +6,7 @@ usuario_id int(10) primary key not null auto_increment,
 usuario varchar(25),
 clave varchar(25),
 fecha_nacimiento date,
+ciudad_id int(10),
 estado varchar(25));
 
 create table Vehiculos(
@@ -14,7 +15,6 @@ tipo varchar(25),
 patente varchar(25),
 fecha_creacion date,
 modelo_id int(10),
-ciudad_id int(10),
 estado varchar(25),
 creado_por varchar(25));
 
